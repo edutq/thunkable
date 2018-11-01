@@ -1,27 +1,69 @@
 <html>
 	<head>
 		<link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css" media="screen, projection"/>
-		
+		<script>
+			function getParameterByName(name, url) {
+				if (!url) url = window.location.href;
+				name = name.replace(/[\[\]]/g, '\\$&');
+				var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+					results = regex.exec(url);
+				if (!results) return null;
+				if (!results[2]) return '';
+				return decodeURIComponent(results[2].replace(/\+/g, ' '));
+			}
+			
+			
+		</script>
 	</head>
 	<body>
-		<div class="row">
-			<div class="col s12 m7">
-				<div class="card">
-					<div class="card-image">
-						<img src="https://res.cloudinary.com/tecprepa/image/upload/v1540785490/r9irzfe7eovphnbfbum3.jpg">
-					</div>
-					<div class="card-content">
-						<span class="card-title">Card Title</span>
-						<p>I am a very simple card. I am good at containing small bits of information.
-						I am convenient because I require little markup to use effectively.</p>
-					</div>
-					<div class="card-action">
-						<a href="#">This is a link</a>
-					</div>
-				</div>
-			</div>
+		<div class="row" id="main">
+			
 		</div>
 		<script type="text/javascript" src="js/materialize.min.js"></script>
+		<script>
+			var row = document.getElementById("main");
+			var images = getParameterByName('images');
+			var imarry = images.split(',');
+			var titles = getParameterByName('titles');
+			var tiarray = titles.split(',');
+			var messages = getParameterByName('messages');
+			var mearray = messages.split(',');
+			//alert(imarry);
+			//console.log(imarry);
+			
+			var i;
+			
+			for (i=0; i<imarry.length; i++){
+				var col = document.createElement("div");
+				col.className="col s12 m6";
+				var card = document.createElement("div");
+				card.className = "card";
+				var cardimage = document.createElement("div");
+				cardimage.className = "card-image";
+				var img = document.createElement("img");
+				img.src=imarry[i];
+				cardimage.appendChild(img);
+				var cardcontent = document.createElement("div");
+				cardcontent.className = "card-content";
+				var cardtitle = document.createElement("div");
+				cardtitle.className = "card-title";
+				var title = document.createTextNode(tiarray[i]);
+				cardtitle.appendChild(title);
+				var cardmessage = document.createElement("p");
+				var message = document.createTextNode(mearray[i]);
+				cardmessage.appendChild(message);
+				cardcontent.appendChild(cardtitle);
+				cardcontent.appendChild(cardmessage);
+				card.appendChild(cardimage);
+				card.appendChild(cardcontent);
+				
+				col.appendChild(card);
+
+				row.appendChild(col);
+				
+			}
+			
+		</script>
 		hola que hace
 	</body>
 </html>
